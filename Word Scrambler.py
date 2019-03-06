@@ -20,9 +20,9 @@ class Scrambler:
             # Test to see if input was successful
             # Test to see if split was successful
             # Test to see length of word
-            print(self.sentence)
-            print(list_words)
-            print(len(list_words))
+            #print(self.sentence)
+            #print(list_words)
+            #print(len(list_words))
             
             # Call to scramble list
             self.scramble_it(list_words)
@@ -32,12 +32,19 @@ class Scrambler:
         # Exit statement
         print("Good-Bye!")
 
-    def scramble_it(aList):
+    def scramble_it(self, aList):
+        i = 0
+        new_str = ""
+        temp_str = ""
         while i < len(aList):
             current_word = aList[i]
             # If the word is only three letters, then moves onto next word
-            if(current_word <= 3):
+            if(len(current_word) <= 3):
                 i += 1
+                temp_str += current_word
+                # Print statement for testing
+                #print("small temp", temp_str)
+                temp_str = ""
             else:
                 # Splitting the words into 3 parts
                 beginning = current_word[0]
@@ -47,10 +54,23 @@ class Scrambler:
                 j = 0
                 
                 # Only scrambling the middle letters
-                while j <= len(middle):
-                    k = j+1
-                    middle[j],middle[k] = middle[k],middle[j]
-                    j += 2
+                #while j + 1 < len(middle):
+                k = j + 1
+                temp_str += middle[k]
+                temp_str += middle[j]
+                while(k + 1 < len(middle)):
+                    j = k + 1
+                    if k < len(middle):
+                        temp_str += middle[j]
+                        k += 1
+                    else:
+                        k = len(middle)
+                # Print statement for testing
+                # print("Temp str: ", temp_str)
+                middle = temp_str
+                temp_str = ""
+                    
+                #j += 2
 
                 # Concatenating back the parts into a single word
                 scrambled_word = (beginning
@@ -61,8 +81,14 @@ class Scrambler:
                 aList[i] = scrambled_word
                 # Iterating the i
                 i += 1
-        print(final_list = " ".join(aList))
+        print(" ".join(aList))
 
 print("Inititalize your key by typing 'your key' = Scrambler().\n" \
       "Then type your 'key'.scrambler() to start!\n" \
       "Then after type 'key'.scramble_it() to start scrambling!\n")
+
+
+
+if __name__ == "__main__":
+    s = Scrambler()
+    s.scrambler()
